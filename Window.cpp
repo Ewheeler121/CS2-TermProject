@@ -368,6 +368,8 @@ void Window::withdrawl()
         }
     } while (cin.fail() || flag);
 
+    flag = true;
+
     do {
         system("cls");
         if (cin.fail()) {
@@ -382,7 +384,7 @@ void Window::withdrawl()
         do {
             system("cls");
 
-            if (flag == false)
+            if (!flag)
             {
                 cout << "Error: Not enough funds to withdraw requested amount.\n";
             }
@@ -398,7 +400,7 @@ void Window::withdrawl()
                     flag = ptr->withdraw(CHECKING, amount);
                     break;
             }
-        } while (flag == false);
+        } while (!flag);
     } while (cin.fail());
 }
 
