@@ -26,6 +26,8 @@ public:
     string getAddress() const;
     string getPhoneNumber() const;
     string getLastDeposit() const;
+    float getSaving() const;
+    float getChecking() const;
 
     //Setters
     bool setName(string);

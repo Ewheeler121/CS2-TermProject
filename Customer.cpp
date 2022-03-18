@@ -111,6 +111,8 @@ string Customer::getSSN() const {return SSN;}
 string Customer::getAddress() const {return address;}
 string Customer::getPhoneNumber() const {return phoneNumber;}
 string Customer::getLastDeposit() const {return lastDepositDate;}
+float Customer::getSaving() const {return saving;}
+float Customer::getChecking() const {return checking;}
 
 //Basic Setters, checks and returns if it meets the requirements
 bool Customer::setName(string Iname){
@@ -283,13 +285,13 @@ double Customer::getAmount(AccountType type) const{
 bool Customer::withdraw(AccountType type, double amount){
     switch (type) {
         case CHECKING:
-            if(checking < amount){
+            if(amount < checking){
                 checking -= amount;
             }else{
                 return false;
             }break;
         case SAVINGS:
-            if(saving < amount){
+            if(amount < saving){
                 saving -= amount;
             }else{
                 return false;

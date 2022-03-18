@@ -1,18 +1,21 @@
 #pragma once
 #include "Bank.h"
 
-
-class Window{
+class Window
+{
 public:
-    Window(string,int);
-    ~Window();
-    void start();
+	Window(string file, int size);
+	~Window();
+	void start();
 
 private:
-    Bank *bank;
-    bool menu();
-
-    void newCust();
-    void delCust();
-
+	Bank* bank;
+	bool menu();
+	void newCust();
+	void delCust();
+	void UpdCustInfo();
+	void deposit();
+	void withdrawl();
+	void ViewCustInfo();
+	void LfistCust();
 };
