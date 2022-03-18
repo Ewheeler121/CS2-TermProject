@@ -283,13 +283,13 @@ double Customer::getAmount(AccountType type) const{
 bool Customer::withdraw(AccountType type, double amount){
     switch (type) {
         case CHECKING:
-            if(amount < checking){
+            if(amount <= checking){
                 checking -= amount;
             }else{
                 return false;
             }break;
         case SAVINGS:
-            if(amount < saving){
+            if(amount <= saving){
                 saving -= amount;
             }else{
                 return false;
