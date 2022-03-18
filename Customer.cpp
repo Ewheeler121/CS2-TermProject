@@ -164,7 +164,7 @@ bool Customer::setDateOfBirth(string Idate){
 
 bool Customer::setSSN(string ISSN){
 
-    //Checking Length for format with and without '/'
+    //Checking Length for format with and without '-'
     if(ISSN.length() == 11 && ISSN.at(3) == '-' && ISSN.at(6) == '-' && findComma(ISSN)){
 
         SSN = ISSN;
