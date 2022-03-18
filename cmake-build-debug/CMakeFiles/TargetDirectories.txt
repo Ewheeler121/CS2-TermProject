@@ -1,3 +1,0 @@
-C:/Users/flaxe/CLionProjects/CS_TermProject-P2/cmake-build-debug/CMakeFiles/CS_TermProject_P2.dir
-C:/Users/flaxe/CLionProjects/CS_TermProject-P2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/flaxe/CLionProjects/CS_TermProject-P2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
