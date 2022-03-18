@@ -6,18 +6,18 @@ using namespace std;
 Window::Window(string file, int size)
 {
     bank = new Bank;
-	bank->start(file, size);
+    bank->start(file, size);
 }
 
 Window::~Window()
 {
-	bank->stop();
-	delete bank;
+    bank->stop();
+    delete bank;
 }
 
 void Window::start()
 {
-	while (menu());
+    while (menu());
 }
 
 bool Window::menu()
@@ -36,44 +36,49 @@ bool Window::menu()
             }
 
             cout << "Lawrence Tech Employee Credit Union" << endl
-                << "******Welcome to the Main Menu******" << endl << endl;
+                 << "******Welcome to the Main Menu******" << endl << endl;
             cout << "1. Create a new checking account." << endl
-                << "2. Remove an existing account." << endl
-                << "3. Update name, address information for an existing customer." << endl
-                << "4. Deposit Transaction." << endl
-                << "5. withdrawl Transaction." << endl
-                << "6. List information of an existing customer." << endl
-                << "7. List customers." << endl
-                << "8. Exit Program." << endl << endl;
+                 << "2. Remove an existing account." << endl
+                 << "3. Update name, address information for an existing customer." << endl
+                 << "4. Deposit Transaction." << endl
+                 << "5. withdrawl Transaction." << endl
+                 << "6. List information of an existing customer." << endl
+                 << "7. List customers." << endl
+                 << "8. Exit Program." << endl << endl;
 
             cout << "Enter Choice: ";
             cin >> choice;
+
+            //when you use cin and getline it often results in skipping steps
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
         } while (choice < 1 || choice > 8 || cin.fail());
 
         switch (choice) {
-        case 1:
-            newCust();
-            break;
-        case 2:
-            delCust();
-            break;
-        case 3:
-            UpdCustInfo();
-            break;
-        case 4:
-            deposit();
-            break;
-        case 5:
-            withdrawl();
-            break;
-        case 6:
-            ViewCustInfo();
-            break;
-        case 7:
-            //ListCust();
-            break;
-        case 8:
-            return false;
+            case 1:
+                newCust();
+                break;
+            case 2:
+                delCust();
+                break;
+            case 3:
+                UpdCustInfo();
+                break;
+            case 4:
+                deposit();
+                break;
+            case 5:
+                withdrawl();
+                break;
+            case 6:
+                ViewCustInfo();
+                break;
+            case 7:
+                //ListCust();
+                break;
+            case 8:
+                return false;
         }
     } while (true);
 }
@@ -252,7 +257,7 @@ void Window::UpdCustInfo()
         }
         else {
             cout << "What would you like to modify?\n"
-                << "1. Name\n" << "2. Address\n" << "3. Phone Number\n";
+                 << "1. Name\n" << "2. Address\n" << "3. Phone Number\n";
             cin >> c;
 
             switch (c) {
@@ -299,10 +304,10 @@ void Window::deposit(){
         ptr = bank->getCustomer(temp);
 
         if(ptr == nullptr){
-            flag = false;    
+            flag = true;
         }
         else{
-            flag = true;
+            flag = false;
         }
 
 
@@ -356,10 +361,10 @@ void Window::withdrawl()
         ptr = bank->getCustomer(temp);
 
         if (ptr == nullptr) {
-            flag = false;
+            flag = true;
         }
         else {
-            flag = true;
+            flag = false;
         }
     } while (cin.fail() || flag);
 
@@ -386,12 +391,12 @@ void Window::withdrawl()
             cin >> amount;
 
             switch (accountType) {
-            case 1:
-                flag = ptr->withdraw(SAVINGS, amount);
-                break;
-            case 2:
-                flag = ptr->withdraw(CHECKING, amount);
-                break;
+                case 1:
+                    flag = ptr->withdraw(SAVINGS, amount);
+                    break;
+                case 2:
+                    flag = ptr->withdraw(CHECKING, amount);
+                    break;
             }
         } while (flag == false);
     } while (cin.fail());
@@ -427,20 +432,20 @@ void Window::ViewCustInfo()
 
     system("cls");
     cout << "Information for " << temp << endl
-        << "Name: " << ptr->getName() << endl
-        << "Date of Birth: " << ptr->getDateOfBirth() << endl
-        << "SSN: " << ptr->getSSN() << endl
-        << "Address: " << ptr->getAddress() << endl
-        << "Phone Number: " << ptr->getPhoneNumber() << endl
-        << "Savings: " << ptr->getAmount(SAVINGS) << endl
-        << "Checking: " << ptr->getAmount(CHECKING) << endl
-        << "Last Deposit Date: " << ptr->getLastDeposit() << endl;
+         << "Name: " << ptr->getName() << endl
+         << "Date of Birth: " << ptr->getDateOfBirth() << endl
+         << "SSN: " << ptr->getSSN() << endl
+         << "Address: " << ptr->getAddress() << endl
+         << "Phone Number: " << ptr->getPhoneNumber() << endl
+         << "Savings: " << ptr->getAmount(SAVINGS) << endl
+         << "Checking: " << ptr->getAmount(CHECKING) << endl
+         << "Last Deposit Date: " << ptr->getLastDeposit() << endl;
 }
 
 void Window::ListCust()
 {
-   /* Customer* ptr;
-    int N;
-    */
-    
+    /* Customer* ptr;
+     int N;
+     */
+
 }

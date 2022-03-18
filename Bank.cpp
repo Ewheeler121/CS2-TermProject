@@ -51,9 +51,15 @@ void Bank::stop(){
     output << "Name,Date of Birth,SSN Number,Address,Phone Number,Saving,Checking,Last Deposit Date" << endl;
 
     //printing CSV formatted info
-    for(int i = 0; i < count; i++){
-        output << customerList[i].getCSV() << endl;
+    if(count == 0){
+        output << customerList[0].getCSV() << endl;
+    }else{
+        for(int i = 0; i < count; i++){
+            output << customerList[i].getCSV() << endl;
+        }
     }
+
+
 
     delete[] customerList;
     output.close();
@@ -125,7 +131,7 @@ Customer* Bank::getCustomer(int index){
 Customer* Bank::getCustomer(string name){
 
     //Searching for the Name and returns results
-    int temp = binarySearch(0,count - 1,name);
+    int temp = binarySearch(0,count,name);
     if(temp == -1)
         return nullptr;
     return &customerList[temp];
