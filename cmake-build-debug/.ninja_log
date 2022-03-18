@@ -1,0 +1,11 @@
+# ninja log v5
+11	91	6693363295882842	CMakeFiles/CS_TermProject_P2.dir/appicon.rc.obj	5ba29a454daa97
+0	264	6693363297579161	CMakeFiles/CS_TermProject_P2.dir/main.cpp.obj	66c60bdb35dc99af
+16	363	6693363298586040	CMakeFiles/CS_TermProject_P2.dir/Window.cpp.obj	2f7c6875f0a60e3f
+415	731	6693363302241553	CS_TermProject_P2.exe	2d1af09653b1d66c
+14	415	6693363299091961	CMakeFiles/CS_TermProject_P2.dir/Bank.cpp.obj	f5680136fb2b74d
+3	231	6693382923819596	CMakeFiles/CS_TermProject_P2.dir/main.cpp.obj	66c60bdb35dc99af
+14	261	6693382924122155	CMakeFiles/CS_TermProject_P2.dir/Customer.cpp.obj	5db6a198b017e854
+15	371	6693382925203434	CMakeFiles/CS_TermProject_P2.dir/Bank.cpp.obj	f5680136fb2b74d
+17	374	6693382925243118	CMakeFiles/CS_TermProject_P2.dir/Window.cpp.obj	2f7c6875f0a60e3f
+375	772	6693382929206152	CS_TermProject_P2.exe	a59de8507ca436c2

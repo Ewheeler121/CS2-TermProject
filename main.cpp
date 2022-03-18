@@ -4,6 +4,7 @@ using namespace std;
 
 int main() {
 
+    //File Stuff
     const string MAINFILE = "Bank_Data.csv";
     const int SIZE = 100;
 

@@ -24,6 +24,6 @@ private:
     string file;
     Customer* customerList;
 
-
+    //Searching
     int binarySearch(int , int, string);
 };

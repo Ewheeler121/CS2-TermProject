@@ -22,9 +22,9 @@ void Window::start(){
 bool Window::menu(){
 
     //Print Menu
+    newCust();
 
-
-    return true;
+    return false;
 }
 
 void Window::newCust() {
