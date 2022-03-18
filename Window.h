@@ -17,5 +17,5 @@ private:
 	void deposit();
 	void withdrawl();
 	void ViewCustInfo();
-	void LfistCust();
+	void ListCust();
 };

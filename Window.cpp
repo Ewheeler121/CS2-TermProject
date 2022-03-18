@@ -432,8 +432,8 @@ void Window::ViewCustInfo()
         << "SSN: " << ptr->getSSN() << endl
         << "Address: " << ptr->getAddress() << endl
         << "Phone Number: " << ptr->getPhoneNumber() << endl
-        << "Savings: " << ptr->getSaving() << endl
-        << "Checking: " << ptr->getChecking() << endl
+        << "Savings: " << ptr->getAmount(SAVINGS) << endl
+        << "Checking: " << ptr->getAmount(CHECKING) << endl
         << "Last Deposit Date: " << ptr->getLastDeposit() << endl;
 }
 

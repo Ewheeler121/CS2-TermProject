@@ -111,8 +111,6 @@ string Customer::getSSN() const {return SSN;}
 string Customer::getAddress() const {return address;}
 string Customer::getPhoneNumber() const {return phoneNumber;}
 string Customer::getLastDeposit() const {return lastDepositDate;}
-float Customer::getSaving() const {return saving;}
-float Customer::getChecking() const {return checking;}
 
 //Basic Setters, checks and returns if it meets the requirements
 bool Customer::setName(string Iname){
