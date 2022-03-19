@@ -75,7 +75,7 @@ bool Window::menu()
                 ViewCustInfo();
                 break;
             case 7:
-                //ListCust();
+                ListCust();
                 break;
             case 8:
                 return false;
@@ -446,8 +446,14 @@ void Window::ViewCustInfo()
 
 void Window::ListCust()
 {
-    /* Customer* ptr;
-     int N;
-     */
-
+    Customer* ptr;
+    int x = 100; // Still need to figure out how to get customer count.
+    
+    cout << "List of Customers:\n";
+    // Loop for all customers in system
+    for (int i = 0; i < x; i++)
+    {
+        ptr = bank->getCustomer(i);
+        cout << "Name" << ptr->getName() << " " << ptr->getSSN() << endl;
+    }
 }
