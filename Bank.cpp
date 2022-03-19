@@ -51,15 +51,13 @@ void Bank::stop(){
     output << "Name,Date of Birth,SSN Number,Address,Phone Number,Saving,Checking,Last Deposit Date" << endl;
 
     //printing CSV formatted info
-    if(count == 0){
+    if(count == 0 && customerList[0].getName() != "NULL"){
         output << customerList[0].getCSV() << endl;
     }else{
         for(int i = 0; i < count; i++){
             output << customerList[i].getCSV() << endl;
         }
     }
-
-
 
     delete[] customerList;
     output.close();
