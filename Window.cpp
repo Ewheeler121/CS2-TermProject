@@ -3,6 +3,14 @@
 #include "Window.h"
 using namespace std;
 
+/*TODO
+ * Make the GUI more presentable (center, Make the prompts standardized AKA: should look the same)
+ * UpdateCust(): needs to be cleaned up and add more checking in inputs
+ * deposit(): add a cancel option
+ * withdrawl(): clean up code a bit
+ * ViewCustInfo(): add a cancel option
+ * */
+
 Window::Window(string file, int size)
 {
     bank = new Bank;
@@ -24,7 +32,6 @@ bool Window::menu()
 {
     int choice;
 
-    do {
         do {
             system("cls");
 
@@ -80,7 +87,8 @@ bool Window::menu()
             case 8:
                 return false;
         }
-    } while (true);
+
+    return true;
 }
 
 void Window::newCust() {
@@ -213,26 +221,26 @@ void Window::delCust()
             cout << "Error: could not get line, try again" << endl;
         }
 
-        if (flag == false) {
+        if (flag) {
             cout << "Error: could find the enter name, try again" << endl;
         }
 
-        cout << "Enter the Name: " << endl;
+        cout << "Enter the Name (type CANCEL to cancel): " << endl;
         getline(cin, temp);
 
         if (temp == "CANCEL")
             break;
 
-        flag = bank->delCustomer(temp);
+        flag = !bank->delCustomer(temp);
 
-    } while (flag || cin.fail() || flag);
+    } while (flag || cin.fail());
 }
 
 void Window::UpdCustInfo()
 {
     int c;
     string temp;
-    bool flag = true;
+    bool flag;
     Customer* ptr;
 
     do {
@@ -253,12 +261,18 @@ void Window::UpdCustInfo()
         ptr = bank->getCustomer(temp);
 
         if (ptr == nullptr) {
-            flag = false;
+            flag = true;
         }
-        else {
+        else{
+
+            flag = false;
             cout << "What would you like to modify?\n"
                  << "1. Name\n" << "2. Address\n" << "3. Phone Number\n";
             cin >> c;
+
+            //when you use cin and getline it often results in skipping steps
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             switch (c) {
                 case 1:
@@ -276,6 +290,8 @@ void Window::UpdCustInfo()
                     getline(cin, temp);
                     ptr->setPhoneNumber(temp);
                     break;
+                default:
+                    flag = true;
             }
         }
     }while (cin.fail() || flag);
@@ -333,6 +349,7 @@ void Window::deposit(){
                 break;
             case 2:
                 ptr->deposit(CHECKING, amount);
+                break;
         }
 
     }while(cin.fail());
@@ -425,10 +442,10 @@ void Window::ViewCustInfo()
         ptr = bank->getCustomer(temp);
 
         if (ptr == nullptr) {
-            flag = false;
+            flag = true;
         }
         else {
-            flag = true;
+            flag = false;
         }
     } while (cin.fail() || flag);
 
@@ -442,25 +459,23 @@ void Window::ViewCustInfo()
          << "Savings: " << ptr->getAmount(SAVINGS) << endl
          << "Checking: " << ptr->getAmount(CHECKING) << endl
          << "Last Deposit Date: " << ptr->getLastDeposit() << endl;
+    system("pause");
 }
 
 void Window::ListCust()
 {
-    Customer* ptr;
-    int x = 100;
-    
-    cout << "List of Customers:\n";
-    // Loop for all customers in system
-    for (int i = 0; i < x; i++)
-    {
-        ptr = bank->getCustomer(i);
+    Customer* ptr = bank->getCustomer(0);
+    int count = 0;
 
-        if (ptr == nullptr) {
-            break;
-        }
-        else {
-            cout << "Name: " << ptr->getName() << ", SSN: " << ptr->getSSN() << endl;
-        }
+    cout << "List of Customers:\n";
+
+    // Loop for all customers in system
+    while(ptr != nullptr){
+
+        cout << "Name: " << ptr->getName() << ", SSN: " << ptr->getSSN() << endl;
+
+        count++;
+        ptr = bank->getCustomer(count);
     }
 
     system("pause");

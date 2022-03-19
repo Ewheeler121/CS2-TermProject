@@ -26,7 +26,7 @@ bool Bank::start(string file,int size){
     //Main Loop to get Customer Info
     while (!input.eof()){
         getline(input,temp);
-        if(customerList[count].readCSV(temp)){
+        if(!customerList[count].readCSV(temp)){
             return false;
         }
         count++;
@@ -35,7 +35,7 @@ bool Bank::start(string file,int size){
         }
     }
 
-    count -=1;
+    count -= 1;
 
     input.close();
     return true;
@@ -77,7 +77,7 @@ void swap(Customer *xp, Customer *yp)
 void Bank::sort() {
     int i, j, min_idx;
 
-    for (i = 0; i < count-1; i++)
+    for (i = 0; i < count; i++)
     {
         min_idx = i;
         for (j = i+1; j < count; j++)
@@ -122,7 +122,9 @@ bool Bank::addCustomer(Customer customer) {
 Customer* Bank::getCustomer(int index){
 
     //Checking if the index is within Range
-    if(index < 0 || index > count - 1){
+    if(count == 0 && index == 0){
+     return &customerList[0];
+    }if(index < 0 || index > count - 1){
         return nullptr;
     }
     return &customerList[index];
