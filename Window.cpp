@@ -6,9 +6,9 @@ using namespace std;
 /*TODO
  * Make the GUI more presentable (center, Make the prompts standardized AKA: should look the same)
  * UpdateCust(): needs to be cleaned up and add more checking in inputs
- * deposit(): add a cancel option
- * withdrawl(): clean up code a bit
- * ViewCustInfo(): add a cancel option
+ * deposit(): add a cancel option (Done)
+ * withdrawl(): clean up code a bit (Done)
+ * ViewCustInfo(): add a cancel option (Done)
  * */
 
 Window::Window(string file, int size)
@@ -252,8 +252,8 @@ void Window::UpdCustInfo()
             cout << "Error: could not get line, try again" << endl;
         }
 
-        cout << "Enter the name of the customer you wish to update, or enter 'CANCEL' to cancel: ";
-        cin >> temp;
+        cout << "Enter the name of the customer, or enter 'CANCEL' to cancel: ";
+        getline(cin,temp);
 
         if (temp == "CANCEL")
             break;
@@ -314,8 +314,11 @@ void Window::deposit(){
             cout << "Error: could not get line, try again" << endl;
         }
 
-        cout << "Enter the Name of the Customer: " << endl;
+        cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
         getline(cin,temp);
+
+        if (temp == "CANCEL")
+            break;
 
         ptr = bank->getCustomer(temp);
 
@@ -325,11 +328,12 @@ void Window::deposit(){
         else{
             flag = false;
         }
-
-
     }while(cin.fail() || flag);
 
     do {
+        if (temp == "CANCEL")
+            break;
+
         system("cls");
         if (cin.fail()) {
             cin.clear();
@@ -372,8 +376,11 @@ void Window::withdrawl()
             cout << "Error: could not get line, try again" << endl;
         }
 
-        cout << "Enter the Name of the Customer: " << endl;
+        cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
         getline(cin, temp);
+
+        if (temp == "CANCEL")
+            break;
 
         ptr = bank->getCustomer(temp);
 
@@ -388,6 +395,9 @@ void Window::withdrawl()
     flag = true;
 
     do {
+        if (temp == "CANCEL")
+            break;
+
         system("cls");
         if (cin.fail()) {
             cin.clear();
@@ -436,8 +446,11 @@ void Window::ViewCustInfo()
             cout << "Error: could not get line, try again" << endl;
         }
 
-        cout << "Enter the Name of the Customer: " << endl;
+        cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
         getline(cin, temp);
+
+        if (temp == "CANCEL")
+            break;
 
         ptr = bank->getCustomer(temp);
 
@@ -449,6 +462,7 @@ void Window::ViewCustInfo()
         }
     } while (cin.fail() || flag);
 
+    if (temp != "CANCEL") {
     system("cls");
     cout << "Information for " << temp << endl
          << "Name: " << ptr->getName() << endl
@@ -459,6 +473,8 @@ void Window::ViewCustInfo()
          << "Savings: " << ptr->getAmount(SAVINGS) << endl
          << "Checking: " << ptr->getAmount(CHECKING) << endl
          << "Last Deposit Date: " << ptr->getLastDeposit() << endl;
+    }
+
     system("pause");
 }
 
