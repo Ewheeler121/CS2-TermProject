@@ -447,13 +447,21 @@ void Window::ViewCustInfo()
 void Window::ListCust()
 {
     Customer* ptr;
-    int x = 100; // Still need to figure out how to get customer count.
+    int x = 100;
     
     cout << "List of Customers:\n";
     // Loop for all customers in system
     for (int i = 0; i < x; i++)
     {
         ptr = bank->getCustomer(i);
-        cout << "Name" << ptr->getName() << " " << ptr->getSSN() << endl;
+
+        if (ptr == nullptr) {
+            break;
+        }
+        else {
+            cout << "Name: " << ptr->getName() << ", SSN: " << ptr->getSSN() << endl;
+        }
     }
+
+    system("pause");
 }
