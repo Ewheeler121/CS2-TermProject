@@ -3,13 +3,8 @@
 #include "Window.h"
 using namespace std;
 
-/*TODO
- * Make the GUI more presentable (center, Make the prompts standardized AKA: should look the same)
- * UpdateCust(): needs to be cleaned up and add more checking in inputs
- * deposit(): add a cancel option (Done)
- * withdrawl(): clean up code a bit (Done)
- * ViewCustInfo(): add a cancel option (Done)
- * */
+//TODO the GUI more presentable (center, Make the prompts standardized AKA: should look the same)
+//TODO in general the prompt when a incorrect input is found is really messy or not existent
 
 Window::Window(string file, int size)
 {
@@ -298,6 +293,7 @@ void Window::UpdCustInfo()
 
 }
 
+//TODO redo the checks, its really messy rn and does not allow to use amounts in prompts
 void Window::deposit(){
 
     Customer *ptr;
@@ -331,8 +327,6 @@ void Window::deposit(){
     }while(cin.fail() || flag);
 
     do {
-        if (temp == "CANCEL")
-            break;
 
         system("cls");
         if (cin.fail()) {
@@ -341,24 +335,38 @@ void Window::deposit(){
             cout << "Error: could not get line, try again" << endl;
         }
 
+        if(flag){
+            cout << "Enter 1 or 2" << endl;
+        }
+
         cout << "1. Savings\n2. Checking\n";
         cin >> accountType;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error: could not get line, try again" << endl;
+        }
 
         cout << "Enter how much to Deposit: " << endl;
         cin >> amount;
 
         switch (accountType) {
             case 1:
-                ptr->deposit(SAVINGS, amount);
+                flag = !ptr->deposit(SAVINGS, amount);
                 break;
             case 2:
-                ptr->deposit(CHECKING, amount);
+                flag = !ptr->deposit(CHECKING, amount);
+                break;
+            default:
+                flag = true;
                 break;
         }
 
-    }while(cin.fail());
+    }while(cin.fail() || flag);
 }
 
+//TODO redo the checks, its really messy rn and does not allow to use amounts in prompts
 void Window::withdrawl()
 {
     Customer* ptr;
@@ -369,12 +377,6 @@ void Window::withdrawl()
 
     do {
         system("cls");
-
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Error: could not get line, try again" << endl;
-        }
 
         cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
         getline(cin, temp);
@@ -390,14 +392,9 @@ void Window::withdrawl()
         else {
             flag = false;
         }
-    } while (cin.fail() || flag);
-
-    flag = true;
+    } while (flag);
 
     do {
-        if (temp == "CANCEL")
-            break;
-
         system("cls");
         if (cin.fail()) {
             cin.clear();
@@ -405,13 +402,13 @@ void Window::withdrawl()
             cout << "Error: could not get line, try again" << endl;
         }
 
-        cout << "1. Savings\n2. Checking\n";
-        cin >> accountType;
-
         do {
             system("cls");
 
-            if (!flag)
+            cout << "1. Savings\n2. Checking\n";
+            cin >> accountType;
+
+            if (flag)
             {
                 cout << "Error: Not enough funds to withdraw requested amount.\n";
             }
@@ -421,16 +418,20 @@ void Window::withdrawl()
 
             switch (accountType) {
                 case 1:
-                    flag = ptr->withdraw(SAVINGS, amount);
+                    flag = !ptr->withdraw(SAVINGS, amount);
                     break;
                 case 2:
-                    flag = ptr->withdraw(CHECKING, amount);
+                    flag = !ptr->withdraw(CHECKING, amount);
+                    break;
+                default:
+                    flag = true;
                     break;
             }
-        } while (!flag);
+        } while (flag);
     } while (cin.fail());
 }
 
+//TODO needs to be cleaned up and add more checking in inputs
 void Window::ViewCustInfo()
 {
     Customer* ptr;
