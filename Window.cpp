@@ -204,7 +204,7 @@ void Window::newCust() {
 void Window::delCust()
 {
 
-    bool flag = true;
+    bool flag = false;
     string temp;
 
     do {
@@ -231,6 +231,7 @@ void Window::delCust()
     } while (flag || cin.fail());
 }
 
+//TODO add the customer info into the prompts
 void Window::UpdCustInfo()
 {
     int c;
@@ -256,9 +257,10 @@ void Window::UpdCustInfo()
         ptr = bank->getCustomer(temp);
 
         if (ptr == nullptr) {
+
             flag = true;
-        }
-        else{
+
+        }else{
 
             flag = false;
             cout << "What would you like to modify?\n"
@@ -293,7 +295,7 @@ void Window::UpdCustInfo()
 
 }
 
-//TODO redo the checks, its really messy rn and does not allow to use amounts in prompts
+//TODO add the customer info into the prompts
 void Window::deposit(){
 
     Customer *ptr;
@@ -329,18 +331,31 @@ void Window::deposit(){
     do {
 
         system("cls");
+
         if (cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Error: could not get line, try again" << endl;
         }
 
-        if(flag){
+        if (flag) {
             cout << "Enter 1 or 2" << endl;
         }
 
         cout << "1. Savings\n2. Checking\n";
         cin >> accountType;
+
+        if(accountType == 1 || accountType == 2){
+            flag = false;
+        }else{
+            flag = true;
+        }
+
+    }while(cin.fail() || flag);
+
+    do{
+
+        system("cls");
 
         if (cin.fail()) {
             cin.clear();
@@ -364,9 +379,14 @@ void Window::deposit(){
         }
 
     }while(cin.fail() || flag);
+
+    //for getline later
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 }
 
-//TODO redo the checks, its really messy rn and does not allow to use amounts in prompts
+//TODO clean up and add the customer info into the prompts
 void Window::withdrawl()
 {
     Customer* ptr;
@@ -395,24 +415,41 @@ void Window::withdrawl()
     } while (flag);
 
     do {
+
         system("cls");
+
         if (cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Error: could not get line, try again" << endl;
         }
 
-        do {
-            system("cls");
+        cout << "1. Savings\n2. Checking\n";
+        cin >> accountType;
 
-            cout << "1. Savings\n2. Checking\n";
-            cin >> accountType;
+        if (flag) {
+            cout << "Enter a 1 or a 2\n";
+        }
 
-            if (flag)
-            {
-                cout << "Error: Not enough funds to withdraw requested amount.\n";
-            }
+        if (accountType == 1 || accountType == 2) {
+            flag = false;
+        } else {
+            flag = true;
+        }
 
+        }while(cin.fail() || flag);
+
+    do{
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error: could not get line, try again" << endl;
+        }
+
+        if(flag){
+            cout << "Error: not enough funds to withdraw requested amount" << endl;
+        }
             cout << "Enter how much to Withdraw: " << endl;
             cin >> amount;
 
@@ -427,8 +464,12 @@ void Window::withdrawl()
                     flag = true;
                     break;
             }
-        } while (flag);
-    } while (cin.fail());
+        } while (cin.fail() || flag);
+
+    //for getline later
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 }
 
 //TODO needs to be cleaned up and add more checking in inputs
