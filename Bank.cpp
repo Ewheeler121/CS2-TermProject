@@ -120,7 +120,7 @@ bool Bank::addCustomer(Customer customer) {
 Customer* Bank::getCustomer(int index){
 
     //Checking if the index is within Range
-    if(count == 0 && index == 0){
+    if(count == 1 && index == 0){
      return &customerList[0];
     }if(index < 0 || index > count - 1){
         return nullptr;
