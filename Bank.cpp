@@ -6,8 +6,8 @@
 bool Bank::start(string file,int size){
 
     //setting variables and allocating the array
-    Bank::size = size;
-    Bank::file = file;
+    this->size = size;
+    this->file = file;
     count = 0;
     customerList = new Customer[size];
 
