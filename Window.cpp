@@ -236,7 +236,7 @@ void Window::UpdCustInfo()
 {
     int c;
     string temp;
-    bool flag;
+    bool flag = false;
     Customer* ptr;
 
     do {
@@ -248,7 +248,11 @@ void Window::UpdCustInfo()
             cout << "Error: could not get line, try again" << endl;
         }
 
-        cout << "Enter the name of the customer, or enter 'CANCEL' to cancel: ";
+        if (flag) {
+            cout << "Error: Customer does not exist.\n";
+        }
+
+        cout << "Enter the name of the customer, or enter 'CANCEL' to cancel:\n";
         getline(cin,temp);
 
         if (temp == "CANCEL")
@@ -263,6 +267,8 @@ void Window::UpdCustInfo()
         }else{
 
             flag = false;
+
+            system("cls");
             cout << "What would you like to modify?\n"
                  << "1. Name\n" << "2. Address\n" << "3. Phone Number\n";
             cin >> c;
@@ -273,17 +279,20 @@ void Window::UpdCustInfo()
 
             switch (c) {
                 case 1:
-                    cout << "Enter new Name: ";
+                    system("cls");
+                    cout << "Enter new Name:\n";
                     getline(cin, temp);
                     ptr->setName(temp);
                     break;
                 case 2:
-                    cout << "Enter new Address (1234 Street):";
+                    system("cls");
+                    cout << "Enter new Address (1234 Street):\n";
                     getline(cin, temp);
                     ptr->setAddress(temp);
                     break;
                 case 3:
-                    cout << "Enter new Phone Number (000-000-0000): ";
+                    system("cls");
+                    cout << "Enter new Phone Number (000-000-0000):\n";
                     getline(cin, temp);
                     ptr->setPhoneNumber(temp);
                     break;
@@ -299,7 +308,7 @@ void Window::UpdCustInfo()
 void Window::deposit(){
 
     Customer *ptr;
-    bool flag;
+    bool flag = false;
     string temp;
     int accountType;
     double amount;
@@ -310,6 +319,10 @@ void Window::deposit(){
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Error: could not get line, try again" << endl;
+        }
+
+        if (flag) {
+            cout << "Error: Customer does not exist.\n";
         }
 
         cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
@@ -390,13 +403,23 @@ void Window::deposit(){
 void Window::withdrawl()
 {
     Customer* ptr;
-    bool flag;
+    bool flag = false;
     string temp;
     int accountType;
     double amount;
 
     do {
         system("cls");
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error: could not get line, try again" << endl;
+        }
+
+        if (flag) {
+            cout << "Error: Customer does not exist.\n";
+        }
 
         cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
         getline(cin, temp);
@@ -412,7 +435,7 @@ void Window::withdrawl()
         else {
             flag = false;
         }
-    } while (flag);
+    } while (cin.fail() || flag);
 
     do {
 
@@ -440,6 +463,7 @@ void Window::withdrawl()
         }while(cin.fail() || flag);
 
     do{
+        system("cls");
 
         if (cin.fail()) {
             cin.clear();
@@ -476,7 +500,7 @@ void Window::withdrawl()
 void Window::ViewCustInfo()
 {
     Customer* ptr;
-    bool flag;
+    bool flag = false;
     string temp;
 
     do {
@@ -486,6 +510,10 @@ void Window::ViewCustInfo()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Error: could not get line, try again" << endl;
+        }
+
+        if (flag) {
+            cout << "Error: Customer does not exist.\n";
         }
 
         cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
@@ -525,7 +553,13 @@ void Window::ListCust()
     Customer* ptr = bank->getCustomer(0);
     int count = 0;
 
+    system("cls");
+
     cout << "List of Customers:\n";
+
+    if (ptr == nullptr) {
+        cout << "Currently no customers in system.\n";
+    }
 
     // Loop for all customers in system
     while(ptr != nullptr){
