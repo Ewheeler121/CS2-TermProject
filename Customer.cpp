@@ -41,7 +41,7 @@ bool Customer::readCSV(string ICSV){
     for(int i = 0; i < ICSV.length(); i++){
 
         //Finding the ','
-        if(ICSV.at(i) == ','){
+        if(ICSV.at(i) == ',' || i + 1 == ICSV.length()){
             for(int k = pastComma; k < i; k++){
                 result += ICSV.at(k);
             }
