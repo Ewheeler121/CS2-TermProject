@@ -3,7 +3,6 @@
 
 using namespace std;
 
-//Basic Constructor
 Customer::Customer(){
 
     name = "NULL";
@@ -18,7 +17,6 @@ Customer::Customer(){
 
 }
 
-//helps with stop people from adding ',' in inputs
 bool Customer::findComma(string Istring){
 
     //Checking for ',' and returns results
@@ -31,7 +29,6 @@ bool Customer::findComma(string Istring){
 
 }
 
-//CSV Management for reading in and outputting
 bool Customer::readCSV(string ICSV){
     int pastComma = 0;
     int marker = 0;
@@ -104,7 +101,6 @@ string Customer::getCSV(){
     return result;
 }
 
-//Basic Getters
 string Customer::getName() const {return name;}
 string Customer::getDateOfBirth() const {return dateOfBirth;}
 string Customer::getSSN() const {return SSN;}
@@ -112,7 +108,6 @@ string Customer::getAddress() const {return address;}
 string Customer::getPhoneNumber() const {return phoneNumber;}
 string Customer::getLastDeposit() const {return lastDepositDate;}
 
-//Basic Setters, checks and returns if it meets the requirements
 bool Customer::setName(string Iname){
 
     //Sets the name, no need for many checks
@@ -268,7 +263,6 @@ bool Customer::setPhoneNumber(string Inumber){
     }
 }
 
-//Account Interactions with SAVINGS and CHECKING
 double Customer::getAmount(AccountType type) const{
     switch (type) {
         case CHECKING:

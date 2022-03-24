@@ -2,7 +2,6 @@
 #include <string>
 #include <fstream>
 
-//Starting and Stopping
 bool Bank::start(string file,int size){
 
     //setting variables and allocating the array
@@ -63,7 +62,6 @@ void Bank::stop(){
     output.close();
 }
 
-//Basic swap for sorting
 void swap(Customer *xp, Customer *yp)
 {
     Customer temp = *xp;
@@ -71,7 +69,6 @@ void swap(Customer *xp, Customer *yp)
     *yp = temp;
 }
 
-//Search and Sorting
 void Bank::sort() {
     int i, j, min_idx;
 
@@ -99,7 +96,6 @@ int Bank::binarySearch(int p, int r, string name) {
     return -1;
 }
 
-//Adding Customers into the main Array
 bool Bank::addCustomer(Customer customer) {
 
     //Checks if the size limit has been reached
@@ -116,7 +112,6 @@ bool Bank::addCustomer(Customer customer) {
     return true;
 }
 
-//Searching for the customer and returning a pointer to it
 Customer* Bank::getCustomer(int index){
 
     //Checking if the index is within Range
@@ -137,7 +132,6 @@ Customer* Bank::getCustomer(string name){
     return &customerList[temp];
 }
 
-//Searches for a customer to delete and return the result
 bool Bank::delCustomer(int index){
 
     //Checking if the index is within Range
