@@ -91,6 +91,6 @@ private:
      @param The string to find ','
      @return False if there is a comma, else returns True
      */
-    bool findComma(string);
+    static bool findComma(string);
 
 };

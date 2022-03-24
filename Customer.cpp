@@ -20,8 +20,8 @@ Customer::Customer(){
 bool Customer::findComma(string Istring){
 
     //Checking for ',' and returns results
-    for(int i = 0; i < Istring.length(); i++){
-        if(Istring.at(i) == ',')
+    for(char i : Istring){
+        if(i == ',')
             return false;
     }
 
