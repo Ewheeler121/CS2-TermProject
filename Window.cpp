@@ -10,12 +10,12 @@ using namespace std;
 Window::Window(string file, int size)
 {
     bank = new Bank;
-    if(!bank->start(move(file), size)){
-        cout << "ERROR: config is incorrect" << endl;
+    if (!bank->start(move(file), size))
+    {
+        cout << "ERROR: config is incorrect.\n";
         system("pause");
         exit(-1);
     }
-
 }
 
 Window::~Window()
@@ -61,7 +61,7 @@ bool Window::menu()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        } while (cin.fail());
+        } while (choice < 1 || choice > 8 || cin.fail());
 
         switch (choice) {
             case 1:
@@ -87,8 +87,6 @@ bool Window::menu()
                 break;
             case 8:
                 return false;
-            default:
-                return true;
         }
 
     return true;
@@ -288,21 +286,29 @@ void Window::UpdCustInfo()
             switch (c) {
                 case 1:
                     system("cls");
+                    cout << "Current Name: " << ptr->getName() << endl;
                     cout << "Enter new Name:\n";
                     getline(cin, temp);
                     ptr->setName(temp);
+                    cout << "New Name: " << ptr->getName() << endl;
+                    system("pause");
                     break;
                 case 2:
                     system("cls");
+                    cout << "Current Address: " << ptr->getAddress() << endl;
                     cout << "Enter new Address (1234 Street):\n";
                     getline(cin, temp);
                     ptr->setAddress(temp);
+                    cout << "New Address: " << ptr->getAddress() << endl;
+                    system("pause");
                     break;
                 case 3:
                     system("cls");
+                    cout << "Current Phone Number: " << ptr->getPhoneNumber() << endl;
                     cout << "Enter new Phone Number (000-000-0000):\n";
                     getline(cin, temp);
                     ptr->setPhoneNumber(temp);
+                    cout << "New Phone Number: " << ptr->getPhoneNumber() << endl;
                     break;
                 default:
                     flag = true;
@@ -315,7 +321,7 @@ void Window::UpdCustInfo()
 //TODO add the customer info into the prompts
 void Window::deposit(){
 
-    Customer *ptr;
+    Customer *ptr = nullptr;
     bool flag = false;
     string temp;
     int accountType;
@@ -337,7 +343,7 @@ void Window::deposit(){
         getline(cin,temp);
 
         if (temp == "CANCEL")
-            break;
+            return;
 
         ptr = bank->getCustomer(temp);
 
@@ -350,7 +356,6 @@ void Window::deposit(){
     }while(cin.fail() || flag);
 
     do {
-
         system("cls");
 
         if (cin.fail()) {
@@ -366,16 +371,15 @@ void Window::deposit(){
         cout << "1. Savings\n2. Checking\n";
         cin >> accountType;
 
-        if(accountType == 1 || accountType == 2){
+        if (accountType == 1 || accountType == 2) {
             flag = false;
-        }else{
+        }
+        else {
             flag = true;
         }
-
     }while(cin.fail() || flag);
 
     do{
-
         system("cls");
 
         if (cin.fail()) {
@@ -384,33 +388,41 @@ void Window::deposit(){
             cout << "Error: could not get line, try again" << endl;
         }
 
+        if (accountType == 1)
+            cout << "Current Savings: " << ptr->getAmount(SAVINGS) << endl;
+        else if (accountType == 2)
+            cout << "Curreng Checking: " << ptr->getAmount(CHECKING) << endl;
         cout << "Enter how much to Deposit: " << endl;
         cin >> amount;
 
         switch (accountType) {
-            case 1:
-                flag = !ptr->deposit(SAVINGS, amount);
-                break;
-            case 2:
-                flag = !ptr->deposit(CHECKING, amount);
-                break;
-            default:
-                flag = true;
-                break;
+        case 1:
+            flag = !ptr->deposit(SAVINGS, amount);
+            break;
+        case 2:
+            flag = !ptr->deposit(CHECKING, amount);
+            break;
+        default:
+            flag = true;
+            break;
         }
+        if (accountType == 1)
+            cout << "New Savings Amount: " << ptr->getAmount(SAVINGS) << endl;
+        else if (accountType == 2)
+            cout << "New Checking Amount: " << ptr->getAmount(CHECKING) << endl;
 
+        system("pause");
     }while(cin.fail() || flag);
 
     //for getline later
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
 }
 
 //TODO clean up and add the customer info into the prompts
 void Window::withdrawl()
 {
-    Customer* ptr;
+    Customer* ptr = nullptr;
     bool flag = false;
     string temp;
     int accountType;
@@ -433,7 +445,7 @@ void Window::withdrawl()
         getline(cin, temp);
 
         if (temp == "CANCEL")
-            break;
+            return;
 
         ptr = bank->getCustomer(temp);
 
@@ -446,7 +458,6 @@ void Window::withdrawl()
     } while (cin.fail() || flag);
 
     do {
-
         system("cls");
 
         if (cin.fail()) {
@@ -464,11 +475,11 @@ void Window::withdrawl()
 
         if (accountType == 1 || accountType == 2) {
             flag = false;
-        } else {
+        }
+        else {
             flag = true;
         }
-
-        }while(cin.fail() || flag);
+    }while(cin.fail() || flag);
 
     do{
         system("cls");
@@ -479,35 +490,46 @@ void Window::withdrawl()
             cout << "Error: could not get line, try again" << endl;
         }
 
-        if(flag){
+        if (flag) {
             cout << "Error: not enough funds to withdraw requested amount" << endl;
         }
-            cout << "Enter how much to Withdraw: " << endl;
-            cin >> amount;
 
-            switch (accountType) {
-                case 1:
-                    flag = !ptr->withdraw(SAVINGS, amount);
-                    break;
-                case 2:
-                    flag = !ptr->withdraw(CHECKING, amount);
-                    break;
-                default:
-                    flag = true;
-                    break;
-            }
-        } while (cin.fail() || flag);
+        if (accountType == 1)
+            cout << "Current Savings: " << ptr->getAmount(SAVINGS) << endl;
+        else if (accountType == 2)
+            cout << "Curreng Checking: " << ptr->getAmount(CHECKING) << endl;
+        cout << "Enter how much to Withdraw: " << endl;
+        cin >> amount;
+
+        switch (accountType) {
+        case 1:
+            flag = !ptr->withdraw(SAVINGS, amount);
+            break;
+        case 2:
+            flag = !ptr->withdraw(CHECKING, amount);
+            break;
+        default:
+            flag = true;
+            break;
+        }
+            
+        if (accountType == 1)
+            cout << "New Savings Amount: " << ptr->getAmount(SAVINGS) << endl;
+        else if (accountType == 2)
+            cout << "New Checking Amount: " << ptr->getAmount(CHECKING) << endl;
+
+        system("pause");
+    } while (cin.fail() || flag);
 
     //for getline later
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
 }
 
 //TODO needs to be cleaned up and add more checking in inputs
 void Window::ViewCustInfo()
 {
-    Customer* ptr;
+    Customer* ptr = nullptr;
     bool flag = false;
     string temp;
 
@@ -528,7 +550,7 @@ void Window::ViewCustInfo()
         getline(cin, temp);
 
         if (temp == "CANCEL")
-            break;
+            return;
 
         ptr = bank->getCustomer(temp);
 
@@ -540,7 +562,6 @@ void Window::ViewCustInfo()
         }
     } while (cin.fail() || flag);
 
-    if (temp != "CANCEL") {
     system("cls");
     cout << "Information for " << temp << endl
          << "Name: " << ptr->getName() << endl
@@ -551,7 +572,6 @@ void Window::ViewCustInfo()
          << "Savings: " << ptr->getAmount(SAVINGS) << endl
          << "Checking: " << ptr->getAmount(CHECKING) << endl
          << "Last Deposit Date: " << ptr->getLastDeposit() << endl;
-    }
 
     system("pause");
 }
