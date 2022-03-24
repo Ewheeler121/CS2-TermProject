@@ -25,7 +25,7 @@ int main() {
     return 0;
 }
 
-void readCONFIG(){
+void readConfig(){
 
     ifstream config;
     config.open("config.cfg");

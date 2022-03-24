@@ -13,30 +13,27 @@ bool Bank::start(string file,int size){
     //opening filestream
     ifstream input;
     input.open(file);
-    if(input.fail()){
-        delete []customerList;
-        return false;
-    }
+    if(!input.fail()){
+        string temp;
 
-    string temp;
-
-    //getting past the titles
-    getline(input,temp);
-
-    //Main Loop to get Customer Info
-    while (!input.eof()){
+        //getting past the titles
         getline(input,temp);
-        if(!customerList[count].readCSV(temp)){
-            delete []customerList;
-            return false;
-        }
-        count++;
-        if(count == size){
-            break;
-        }
-    }
 
-    count -= 1;
+        //Main Loop to get Customer Info
+        while (!input.eof()){
+            getline(input,temp);
+            if(!customerList[count].readCSV(temp)){
+                delete []customerList;
+                return false;
+            }
+            count++;
+            if(count == size){
+                break;
+            }
+        }
+
+        count -= 1;
+    }
 
     input.close();
     return true;
