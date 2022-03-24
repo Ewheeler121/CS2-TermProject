@@ -14,6 +14,7 @@ bool Bank::start(string file,int size){
     ifstream input;
     input.open(file);
     if(input.fail()){
+        delete []customerList;
         return false;
     }
 
@@ -26,6 +27,7 @@ bool Bank::start(string file,int size){
     while (!input.eof()){
         getline(input,temp);
         if(!customerList[count].readCSV(temp)){
+            delete []customerList;
             return false;
         }
         count++;
@@ -59,6 +61,7 @@ void Bank::stop(){
     }
 
     delete[] customerList;
+    customerList = nullptr;
     output.close();
 }
 

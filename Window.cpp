@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits>
+#include <utility>
 #include "Window.h"
 using namespace std;
 
@@ -9,7 +10,12 @@ using namespace std;
 Window::Window(string file, int size)
 {
     bank = new Bank;
-    bank->start(file, size);
+    if(!bank->start(move(file), size)){
+        cout << "ERROR: config is incorrect" << endl;
+        system("pause");
+        exit(-1);
+    }
+
 }
 
 Window::~Window()
@@ -55,7 +61,7 @@ bool Window::menu()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        } while (choice < 1 || choice > 8 || cin.fail());
+        } while (cin.fail());
 
         switch (choice) {
             case 1:
@@ -81,6 +87,8 @@ bool Window::menu()
                 break;
             case 8:
                 return false;
+            default:
+                return true;
         }
 
     return true;
