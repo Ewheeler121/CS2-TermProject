@@ -4,8 +4,8 @@
 #include "Window.h"
 using namespace std;
 
-//TODO the GUI more presentable (center, Make the prompts standardized AKA: should look the same)
-//TODO in general the prompt when a incorrect input is found is really messy or not existent
+//TODO clean up code, make it look nicer :)
+//TODO break the program to find bugs
 
 Window::Window(string file, int size)
 {
@@ -61,7 +61,7 @@ bool Window::menu()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        } while (choice < 1 || choice > 8 || cin.fail());
+        } while (cin.fail()); //check for 1-8 is done with switch default
 
         switch (choice) {
             case 1:
@@ -87,6 +87,8 @@ bool Window::menu()
                 break;
             case 8:
                 return false;
+            default:
+                return true;
         }
 
     return true;
@@ -237,7 +239,6 @@ void Window::delCust()
     } while (flag || cin.fail());
 }
 
-//TODO add the customer info into the prompts
 void Window::UpdCustInfo()
 {
     int c;
@@ -318,7 +319,6 @@ void Window::UpdCustInfo()
 
 }
 
-//TODO add the customer info into the prompts
 void Window::deposit(){
 
     Customer *ptr = nullptr;
@@ -419,7 +419,6 @@ void Window::deposit(){
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-//TODO clean up and add the customer info into the prompts
 void Window::withdrawl()
 {
     Customer* ptr = nullptr;
@@ -497,7 +496,7 @@ void Window::withdrawl()
         if (accountType == 1)
             cout << "Current Savings: " << ptr->getAmount(SAVINGS) << endl;
         else if (accountType == 2)
-            cout << "Curreng Checking: " << ptr->getAmount(CHECKING) << endl;
+            cout << "Current Checking: " << ptr->getAmount(CHECKING) << endl;
         cout << "Enter how much to Withdraw: " << endl;
         cin >> amount;
 
@@ -526,7 +525,6 @@ void Window::withdrawl()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-//TODO needs to be cleaned up and add more checking in inputs
 void Window::ViewCustInfo()
 {
     Customer* ptr = nullptr;
