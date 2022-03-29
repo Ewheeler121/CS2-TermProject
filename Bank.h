@@ -6,7 +6,7 @@ class Bank{
 public:
 
     /**Starts the bank and reads the CSV file
-     * @param the CSV File name and the max size of the arra
+     * @param the CSV File name and the max size of the array
      * @return True if success, false if failed*/
     bool start(string,int);
 
