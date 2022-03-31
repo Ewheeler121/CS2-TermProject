@@ -45,9 +45,10 @@ bool Window::menu()
 
             cout << "Lawrence Tech Employee Credit Union" << endl
                  << "******Welcome to the Main Menu******" << endl << endl;
+
             cout << "1. Create a new checking account." << endl
                  << "2. Remove an existing account." << endl
-                 << "3. Update name, address information for an existing customer." << endl
+                 << "3. Update information of an existing customer." << endl
                  << "4. Deposit Transaction." << endl
                  << "5. withdrawl Transaction." << endl
                  << "6. List information of an existing customer." << endl
@@ -259,7 +260,7 @@ void Window::UpdCustInfo()
             cout << "Error: Customer does not exist.\n";
         }
 
-        cout << "Enter the name of the customer, or enter 'CANCEL' to cancel:\n";
+        cout << "Enter the name of the customer (type CANCEL to cancel): ";
         getline(cin,temp);
 
         if (temp == "CANCEL")
@@ -287,36 +288,42 @@ void Window::UpdCustInfo()
             switch (c) {
                 case 1:
                     system("cls");
+                    
                     cout << "Current Name: " << ptr->getName() << endl;
                     cout << "Enter new Name:\n";
                     getline(cin, temp);
+                    
                     ptr->setName(temp);
                     cout << "New Name: " << ptr->getName() << endl;
                     system("pause");
                     break;
                 case 2:
                     system("cls");
+                    
                     cout << "Current Address: " << ptr->getAddress() << endl;
                     cout << "Enter new Address (1234 Street):\n";
                     getline(cin, temp);
+                    
                     ptr->setAddress(temp);
                     cout << "New Address: " << ptr->getAddress() << endl;
                     system("pause");
                     break;
                 case 3:
                     system("cls");
+                   
                     cout << "Current Phone Number: " << ptr->getPhoneNumber() << endl;
                     cout << "Enter new Phone Number (000-000-0000):\n";
                     getline(cin, temp);
+                   
                     ptr->setPhoneNumber(temp);
                     cout << "New Phone Number: " << ptr->getPhoneNumber() << endl;
+                    system("pause");
                     break;
                 default:
                     flag = true;
             }
         }
     }while (cin.fail() || flag);
-
 }
 
 void Window::deposit(){
@@ -339,7 +346,7 @@ void Window::deposit(){
             cout << "Error: Customer does not exist.\n";
         }
 
-        cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
+        cout << "Enter the Name of the customer (type CANCEL to cancel): " << endl;
         getline(cin,temp);
 
         if (temp == "CANCEL")
@@ -391,21 +398,23 @@ void Window::deposit(){
         if (accountType == 1)
             cout << "Current Savings: " << ptr->getAmount(SAVINGS) << endl;
         else if (accountType == 2)
-            cout << "Curreng Checking: " << ptr->getAmount(CHECKING) << endl;
+            cout << "Current Checking: " << ptr->getAmount(CHECKING) << endl;
+       
         cout << "Enter how much to Deposit: " << endl;
         cin >> amount;
 
         switch (accountType) {
-        case 1:
-            flag = !ptr->deposit(SAVINGS, amount);
-            break;
-        case 2:
-            flag = !ptr->deposit(CHECKING, amount);
-            break;
-        default:
-            flag = true;
-            break;
+            case 1:
+                flag = !ptr->deposit(SAVINGS, amount);
+                break;
+            case 2:
+                flag = !ptr->deposit(CHECKING, amount);
+                break;
+            default:
+                flag = true;
+                break;
         }
+        
         if (accountType == 1)
             cout << "New Savings Amount: " << ptr->getAmount(SAVINGS) << endl;
         else if (accountType == 2)
@@ -440,7 +449,7 @@ void Window::withdrawl()
             cout << "Error: Customer does not exist.\n";
         }
 
-        cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
+        cout << "Enter the Name of the customer (type CANCEL to cancel): " << endl;
         getline(cin, temp);
 
         if (temp == "CANCEL")
@@ -497,19 +506,20 @@ void Window::withdrawl()
             cout << "Current Savings: " << ptr->getAmount(SAVINGS) << endl;
         else if (accountType == 2)
             cout << "Current Checking: " << ptr->getAmount(CHECKING) << endl;
+        
         cout << "Enter how much to Withdraw: " << endl;
         cin >> amount;
 
         switch (accountType) {
-        case 1:
-            flag = !ptr->withdraw(SAVINGS, amount);
-            break;
-        case 2:
-            flag = !ptr->withdraw(CHECKING, amount);
-            break;
-        default:
-            flag = true;
-            break;
+            case 1:
+                flag = !ptr->withdraw(SAVINGS, amount);
+                break;
+            case 2:
+                flag = !ptr->withdraw(CHECKING, amount);
+                break;
+            default:
+                flag = true;
+                break;
         }
             
         if (accountType == 1)
@@ -544,7 +554,7 @@ void Window::ViewCustInfo()
             cout << "Error: Customer does not exist.\n";
         }
 
-        cout << "Enter the Name of the Customer, or enter 'CANCEL' to cancel: " << endl;
+        cout << "Enter the Name of the customer (type CANCEL to cancel): " << endl;
         getline(cin, temp);
 
         if (temp == "CANCEL")
