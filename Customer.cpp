@@ -80,8 +80,11 @@ bool Customer::readCSV(string ICSV){
                     marker++;
                     break;
                 case 7:
+                    result += ICSV.at(ICSV.length() - 1);
                     lastDepositDate = result;
                     marker++;
+                    break;
+                default:
                     break;
             }
             //restarting results
