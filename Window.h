@@ -4,18 +4,21 @@
 class Window
 {
 public:
-	Window(string file, int size);
-	~Window();
-	void start();
+
+    /**Constructor for Window
+     * @param the CSV File name, Max size of the array*/
+	Window(string, int);
+	~Window(); ///< Destructor
+	void start(); ///< Starts the main loop
 
 private:
-	Bank* bank;
-	bool menu();
-	void newCust();
-	void delCust();
-	void UpdCustInfo();
-	void deposit();
-	void withdrawl();
-	void ViewCustInfo();
-	void ListCust();
+	Bank* bank; ///< The Bank
+	bool menu(); ///< Prints menu and receives input
+	void newCust(); ///< Creates a new customer
+	void delCust(); ///< Deletes a customer
+	void UpdCustInfo(); ///< Updates a customer's info
+	void deposit(); ///< deposit into a account
+	void withdrawal(); ///< withdrawal from a account
+	void ViewCustInfo(); ///< View a customer's info
+	void ListCust(); ///< Lists all current customers
 };

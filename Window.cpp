@@ -50,7 +50,7 @@ bool Window::menu()
                  << "2. Remove an existing account." << endl
                  << "3. Update information of an existing customer." << endl
                  << "4. Deposit Transaction." << endl
-                 << "5. withdrawl Transaction." << endl
+                 << "5. withdrawal Transaction." << endl
                  << "6. List information of an existing customer." << endl
                  << "7. List customers." << endl
                  << "8. Exit Program." << endl << endl;
@@ -78,7 +78,7 @@ bool Window::menu()
                 deposit();
                 break;
             case 5:
-                withdrawl();
+                withdrawal();
                 break;
             case 6:
                 ViewCustInfo();
@@ -428,7 +428,7 @@ void Window::deposit(){
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void Window::withdrawl()
+void Window::withdrawal()
 {
     Customer* ptr = nullptr;
     bool flag = false;
