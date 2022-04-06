@@ -1,0 +1,94 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class main{
+    +mainFile : string
+    +size : int
+    +readConfig()
+    +main()
+}
+
+main <-- Window : uses
+
+class Window{
+    -Bank* bank
+    +Window(CSV fileName : string, sizeLimit : int)
+    +~Window()
+    +start()
+    +menu()
+    +newCust()
+    +delCust()
+    +updCustInfo()
+    +deposit()
+    +withdrawal()
+    +ViewCustInfo()
+    +ListCust()
+}
+
+Window o-- Bank
+
+class Bank{
+    -count : int
+    -size : int
+    -fileName : string
+    -customerList : Customer*
+    -sort()
+    -binarySearch(start of index : int, highest Cust : int, name : string)
+    +start(fileName : string, sizeLimit : int)
+    +stop()
+    +addCustomer(Customer)
+    +delCustomer(index : int)
+    +delCustomer(name : string)
+    +getCustomer(index : int)
+    +getCustomer(name : string)
+}
+
+Bank o-- Customer
+
+class Customer{
+    -name : string
+    -dateOfBirth : string
+    -SSN : string
+    -address : string
+    -phoneNumber : string
+    -accounts : Account*
+    -lastDepositDate : string
+    -findComma(Line of Text : string)
+    +Customer()
+    +readCSV(CSV line : string)
+    +getCSV()
+    +getName()
+    +getDateofBirth()
+    +getSSN()
+    +getAddress()
+    +getPhoneNumber()
+    +getLastDeposit()
+    +setName(Name : string)
+    +setDateofBirth(Date of Birth : string)
+    +setSSN(SSN Number : string)
+    +setAddress(Address : string)
+    +setPhoneNumber(Phone Number : string)
+    +getAmount(Type of Account : AccountType)
+    +withdrawal(Type of Account : AccountType, Amount : double)
+    +deposit(Type of Account : AccountType, Amount : double)
+
+}
+
+Customer o--Account
+
+class Account{
+-amount : double
+-getAmount()
++withdrawal(amount : double)
++deposit(amount : double)
++setAmount(amount : double)
+}
+
+Account *-- AccountType
+
+enum AccountType{
+    SAVING
+    CHECKING
+    COUNT
+}
+@enduml
