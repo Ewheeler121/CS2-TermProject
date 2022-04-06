@@ -11,8 +11,7 @@ Customer::Customer(){
     address = "000 NULL";
     phoneNumber = "000-000-0000";
 
-    checking = 0;
-    saving = 0;
+    accounts = new Account[COUNT];
     lastDepositDate = "00/00/0000";
 
 }
@@ -72,11 +71,11 @@ bool Customer::readCSV(string ICSV){
                     marker++;
                     break;
                 case 5:
-                    saving = stod(result);
+                    accounts[marker - 5].setAmount(stod(result));
                     marker++;
                     break;
                 case 6:
-                    checking = stod(result);
+                    accounts[marker - 5].setAmount(stod(result));
                     marker++;
                     break;
                 case 7:
@@ -85,6 +84,8 @@ bool Customer::readCSV(string ICSV){
                     marker++;
                     break;
                 default:
+                    accounts[marker - 5].setAmount(stod(result));
+                    marker++;
                     break;
             }
             //restarting results
@@ -98,8 +99,25 @@ string Customer::getCSV(){
     string result = "";
 
     //making the string that represents the customer in CSV format
-    result += name + ',' + dateOfBirth + ',' + SSN + ',' + address + ',' + phoneNumber + ',' + to_string(saving) + ',' +
-              to_string(checking) + ',' + lastDepositDate;
+    result += name + ',' + dateOfBirth + ',' + SSN + ',' + address + ',' + phoneNumber;
+
+    //loop for accounts
+    for(int i = 0; i < 2; i++){
+        result += ',' + to_string(accounts[i].getAmount());
+    }
+
+    result +=',' + lastDepositDate;
+
+    //getting the length of the account array for special accounts
+    int size = sizeof(accounts)/sizeof(accounts[0]);
+
+    if(size == 3){
+            result += ',' + to_string(accounts[2].getAmount());
+    }else if(size > 3){
+        for(int i = 2; i < size; i++){
+            result += ',' + to_string(accounts[i].getAmount());
+        }
+    }
 
     return result;
 }
@@ -267,47 +285,16 @@ bool Customer::setPhoneNumber(string Inumber){
 }
 
 double Customer::getAmount(AccountType type) const{
-    switch (type) {
-        case CHECKING:
-            return checking;
-        case SAVINGS:
-            return saving;
-        default:
-            return -1;
-    }
+    return accounts[(int)type].getAmount();
 }
 
 bool Customer::withdraw(AccountType type, double amount){
-    switch (type) {
-        case CHECKING:
-            if(amount <= checking){
-                checking -= amount;
-            }else{
-                return false;
-            }break;
-        case SAVINGS:
-            if(amount <= saving){
-                saving -= amount;
-            }else{
-                return false;
-            }break;
-        default:
-            return false;
-    }
-    return true;
+    return accounts[(int)type].withdrawal(amount);
 }
 
 bool Customer::deposit(AccountType type, double amount){
-    switch (type) {
-        case CHECKING:
-            checking += amount;
-            break;
-        case SAVINGS:
-            saving += amount;
-            break;
-        default:
-            return false;
-    }
+
+    accounts[(int)type].deposit(amount);
 
     //https://stackoverflow.com/questions/997946/how-to-get-current-time-and-date-in-c
     //finding the current date

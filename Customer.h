@@ -1,15 +1,8 @@
 #pragma once
 #include <string>
+#include "Accounts/Account.h"
 
 using namespace std;
-
-///@enum Contains the type of account
-enum AccountType{
-    ///Checking account
-    CHECKING,
-    ///Savings account
-    SAVINGS
-};
 
 class Customer{
 public:
@@ -82,8 +75,7 @@ private:
     string address; ///< Customer's Address
     string phoneNumber; ///< Customer's Phone Number
 
-    double checking; ///< Customer's Checking account
-    double saving; ///< Customer's Savings account
+    Account* accounts; ///< Customer's Checking and Savings account using enum AccountType
     string lastDepositDate; ///< The Date of the Customers last Deposit
 
     /**
