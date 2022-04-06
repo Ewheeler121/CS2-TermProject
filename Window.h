@@ -1,5 +1,5 @@
 #pragma once
-#include "Bank.h"
+#include "Bank/Bank.h"
 
 class Window
 {

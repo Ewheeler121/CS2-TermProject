@@ -46,7 +46,7 @@ void Bank::stop(){
     output.open(file,ios::out | ios::trunc);
 
     //printing titles
-    output << "Name,Date of Birth,SSN Number,Address,Phone Number,Saving,Checking,Last Deposit Date" << endl;
+    output << "Name,Date of Birth,SSN Number,Address,Phone Number,Checking,Savings,Last Deposit Date" << endl;
 
     //printing CSV formatted info
     if(count == 0 && customerList[0].getName() != "NULL"){
